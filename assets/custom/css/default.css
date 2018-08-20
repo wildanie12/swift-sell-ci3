@@ -1,0 +1,187 @@
+html, body {
+	scroll-behavior: smooth;
+}
+
+/* ---- 		Typography 			---- */
+.slow-spin {
+	-webkit-animation: fa-spin 24s infinite linear;
+	animation: fa-spin 24s infinite linear;
+}
+.list-group-item.active h4 {
+	color: white !important;
+}
+.dropup .dropdown-toggle::after {
+	display: none !important;
+}
+
+
+/* ---- 		Smart Wizard Tweak 			---- */
+.step-anchor {
+	flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    overflow-x: scroll !important;
+    border: 0 !important;
+}
+.step-anchor::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	background: #bbbbbb;
+}
+.step-anchor::-webkit-scrollbar-thumb {
+	width: 5px;
+	height: 5px;
+	background: #469046;
+}
+.step-content {
+	padding-top:20px !important;
+	background: transparent !important;
+}
+/*
+.sw-theme-dots>ul.step-anchor {
+	background: transparent !important;
+}
+.sw-theme-dots>ul.step-anchor:before {
+	background-color: #cfecff !important;
+}
+.sw-theme-dots>ul.step-anchor>li>a:before {
+    bottom: -7px !important;
+    background: #cfecff !important;
+}
+.sw-theme-dots>ul.step-anchor>li>a:after {
+	bottom: -4px !important;
+}
+.sw-theme-dots .sw-toolbar {
+    background: transparent !important;
+}
+
+.sw-theme-dots>ul.step-anchor>li.done>a {
+    color: #0088b1 !important;
+}
+.sw-theme-dots>ul.step-anchor>li.done>a:after {
+    background: #0088b1 !important;
+}
+
+.sw-theme-dots>ul.step-anchor>li.active>a {
+    color: #056714 !important;
+}
+.sw-theme-dots>ul.step-anchor>li.active>a:after {
+    background: #056714 !important;
+}
+@media screen and (max-width: 768px) {
+	.sw-theme-dots>ul.step-anchor>li>a:after {
+		left: -28px !important;
+	}
+}*/
+
+/* ----------- Form -----------------*/
+.custom-control-inline {
+	margin-right: 3rem !important;
+}
+.help-block {
+	font-size: 9pt !important;
+	font-style: italic !important;
+}
+.custom-dropdown {
+	position: absolute !important;
+	z-index: 999;
+	left: 8px;
+}
+.list-group li {
+	cursor: pointer;
+}
+label.error {
+    color: #b35050;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 10pt;
+}
+
+
+/* ---- 		Layout 			---- */
+.navbar-top {
+	background: linear-gradient(180deg, #0c0525ed 47%, #0c05259e, transparent 100%) !important;
+}
+.card-header {
+	line-height: 9px !important;
+}
+.card-subtitle {
+	font-size: 8pt;
+}
+.input-group > .input-group-prepend:last-child > .input-group-text {
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+.avatar img {
+    height: 100% !important;
+}
+.modal-collapse #wrapper-collapse {
+	max-height: 800px;
+    overflow-y: auto;
+}
+.btn-sidebar-show {display: none}
+.btn-sidebar-hide {display: none}
+
+@media (min-width: 768px) {
+	.btn-sidebar-show {
+		z-index: 998 !important;
+		position: fixed !important;
+		top: 75px !important;
+		left: 10px !important;
+	}
+
+	.modal-xl {
+		width: 90% !important;
+		max-width:1200px !important;
+	}
+	.navbar-horizontal .navbar-brand img {
+		height: 45px !important;
+	}
+}
+@page  
+{ 
+    size: auto;   /* auto is the initial value */ 
+
+    /* this affects the margin in the printer settings */ 
+    margin: 25mm 25mm 25mm 25mm;  
+} 
+@media print {
+	table { page-break-inside:auto !important}
+    tr    { page-break-inside:avoid; page-break-after:auto !important}
+    thead { display:table-header-group !important}
+    tfoot { display:table-footer-group !important}
+	body {
+		margin-bottom: : 3cm !important;
+		margin-top: : 3cm !important;
+		background: white !important;
+	}
+	.print:not(:last-child) {
+		page-break-inside: avoid;
+	}
+
+    .page-break-before {
+    	page-break-before: always;
+    }
+    .page-break-after {
+    	page-break-after: always;
+    }
+	.navbar-vertical.navbar-expand-md.fixed-left + .main-content {
+		margin-left: 0 !important;
+	}
+
+	body {
+		background-color: #FFFFFF !important;
+	}
+	.table-laporan th, .table-laporan td {
+		font-size: 12pt !important;
+		padding-top: 2px !important;
+		color: black !important;
+		padding-bottom: 2px !important;
+		vertical-align: middle !important;
+		white-space: pre-wrap !important;
+		background: white;
+	}
+	.modal-backdrop {
+		background-color: #FFFFFF !important;
+	}
+	.tooltip { display: none !important; }
+}
