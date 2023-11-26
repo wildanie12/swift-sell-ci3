@@ -24,7 +24,7 @@ date_default_timezone_set('asia/jakarta');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://' .$_SERVER['HTTP_HOST']. '/apotek';
+$config['base_url'] = 'http://' .$_SERVER['HTTP_HOST'];
 
 /*
 |--------------------------------------------------------------------------
