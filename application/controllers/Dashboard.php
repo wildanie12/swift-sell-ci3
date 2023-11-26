@@ -226,7 +226,7 @@ class Dashboard extends CI_Controller {
 		$data['app_logo'] = $this->KonfigurasiModel->get('APP_LOGO');
 
 		// Ui
-		$data['ui_title'] = $data['app_name']. ' - Dashboard';
+		$data['ui_title'] = $data['app_name']. ' - Dashbssoard';
 		$data['ui_css'] = array(
 		);
 		$data['ui_js'] = array(

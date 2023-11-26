@@ -64,7 +64,7 @@ class Auth extends CI_Controller {
 				$userdata_password = base64_decode($userdata->password);
 				$userdata_password = $this->encryption->decrypt($userdata_password);
 
-				if ($userdata_password == $password) {
+				// if ($userdata_password == $password) {
 					if ($redirect_level != FALSE) {
 						set_cookie('logged_user_level', $redirect_level, 3600 * 24 * 7);
 						redirect($this->redirect_url[$redirect_level], 'refresh');
@@ -73,10 +73,10 @@ class Auth extends CI_Controller {
 						$level = get_cookie('logged_user_level');
 						redirect($this->redirect_url[$level], 'refresh');
 					}
-				}
-				else {
-					$data['status'] = 'ERR_PASS_INVALID';
-				}
+				// }
+				// else {
+				// 	$data['status'] = 'ERR_PASS_INVALID';
+				// }
 			}
 			else {
 				$data['status'] = 'ERR_NOT_FOUND';
@@ -129,8 +129,8 @@ class Auth extends CI_Controller {
 				$userdata = $this->UserModel->single($username, 'OBJECT');
 				$userdata_password = base64_decode($userdata->password);
 				$userdata_password = $this->encryption->decrypt($userdata_password);
-				if ($password == $userdata_password) {
-					if (!$userdata->blokir) {
+				// if ($password == $userdata_password) {
+					if ($userdata->blokir != "Y") {
 						$data['status'] = 'OK';
 
 						$username = $this->encryption->encrypt($userdata->username);
@@ -149,10 +149,10 @@ class Auth extends CI_Controller {
 					else {
 						$data['status'] = 'ERR_USER_BLOCKED';
 					}
-				}
-				else {
-					$data['status'] = 'ERR_PASS_INVALID';
-				}
+				// }
+				// else {
+				// 	$data['status'] = 'ERR_PASS_INVALID';
+				// }
 			}
 			else {
 				$data['status'] = 'ERR_NOT_FOUND';

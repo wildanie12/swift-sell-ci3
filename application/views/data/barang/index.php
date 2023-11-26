@@ -26,8 +26,7 @@
                         </div>
                         <div class="col-auto">
                             <button type="button" class="btn btn-primary rounded-circle btn-icon-only trigger-filter" data-target="#filter-barang" data-toggle="tooltip" data-placement="bottom" title="" style="padding-top: 1px" data-original-title="Buka filter">
-                                <i
-                                 class="fas fa-filter"></i>
+                                <i class="fas fa-filter"></i>
                             </button>
                             <a href="http://localhost/barang/barang/registrasi" class="btn btn-link btn-tambah-barang rounded-circle btn-icon-only" data-toggle="tooltip" data-placement="bottom" title="" style="padding-top: 1px" data-original-title="Tambah data barang">
                                 <i class="fas fa-plus"></i>
@@ -467,6 +466,8 @@ $("#modal-tambah_barang").on('shown.bs.modal', function(e) {
     $("#tambah_barang-nama").focus();
 });
 $("#form-tambah_barang").submit(function(e) {
+    console.log(new FormData(this))
+    
     e.preventDefault();
     $.ajax({
         url: barang_insert.ajax_link,
@@ -497,6 +498,7 @@ var barang_update = {
 }
 $("#form-edit_barang").submit(function(e) {
     e.preventDefault();
+    alert('string')
     $.ajax({
         url: barang_update.ajax_link,
         type: 'POST',

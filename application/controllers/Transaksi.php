@@ -698,58 +698,54 @@ class Transaksi extends CI_Controller {
 		// Load Config
 		$this->load->model('KonfigurasiModel');
 		$c_title = $this->KonfigurasiModel->get('APP_NAMA_TOKO');
+		$c_pesan_penutup = $this->KonfigurasiModel->get('PRINTER_PESAN_PENUTUP');
+		$c_feed = $this->KonfigurasiModel->get('PRINTER_END_FEED');
 		$c_ppn = $this->KonfigurasiModel->get('DATA_PPN');
 
 
-		function columnify($col_1, $col_2, $col_3, $col_4) {
-			$col_1_width = 14;
-			$col_2_width = 4;
-			$col_3_width = 10;
-			$col_4_width = 13;
-
-			$space = 0;
-
-		    $col_1_wrapped = wordwrap($col_1, $col_1_width, "\n", true);
-		    $col_2_wrapped = wordwrap($col_2, $col_2_width, "\n", true);
-		    $col_3_wrapped = wordwrap($col_3, $col_3_width, "\n", true);
-		    $col_4_wrapped = wordwrap($col_4, $col_4_width, "\n", true);
-
-
-		    $col_1_lines = explode("\n", $col_1_wrapped);
-		    $col_2_lines = explode("\n", $col_2_wrapped);
-		    $col_3_lines = explode("\n", $col_3_wrapped);
-		    $col_4_lines = explode("\n", $col_4_wrapped);
-		    $allLines = array();
-		    for ($i = 0; $i < max(count($col_1_lines), count($col_2_lines), count($col_3_lines), count($col_4_lines)); $i++) {
-
-		        $col_1_part = str_pad(isset($col_1_lines[$i]) ? $col_1_lines[$i] : "", $col_1_width, " ");
-		        $col_2_part = str_pad(isset($col_2_lines[$i]) ? $col_2_lines[$i] : "", $col_2_width, " ");
-		        $col_3_part = str_pad(isset($col_3_lines[$i]) ? $col_3_lines[$i] : "", $col_3_width, " ");
-		        $col_4_part = str_pad(isset($col_4_lines[$i]) ? $col_4_lines[$i] : "", $col_4_width, " ");
-		        $allLines[] = $col_1_part . str_repeat(" ", 1) . $col_2_part . str_repeat(" ", $space) . $col_3_part . str_repeat(" ", $space) . $col_4_part;
-		    }
-		    return implode($allLines, "\n") . "\n";
-		}
-		function columnify_duo($col_1, $col_2) {
-			$col_1_width = 10;
-			$col_2_width = 28;
-
-			$space = 1;
-
-		    $col_1_wrapped = wordwrap($col_1, $col_1_width, "\n", true);
-		    $col_2_wrapped = wordwrap($col_2, $col_2_width, "\n", true);
-
-
-		    $col_1_lines = explode("\n", $col_1_wrapped);
-		    $col_2_lines = explode("\n", $col_2_wrapped);
-		    $allLines = array();
-		    for ($i = 0; $i < max(count($col_1_lines), count($col_2_lines)); $i++) {
-		        $col_1_part = str_pad(isset($col_1_lines[$i]) ? $col_1_lines[$i] : "", $col_1_width, " ");
-		        $col_2_part = str_pad(isset($col_2_lines[$i]) ? $col_2_lines[$i] : "", $col_2_width, " ");
-		        $allLines[] = $col_1_part . str_repeat(" ", $space) . $col_2_part;
-		    }
-		    return implode($allLines, "\n") . "\n";
-		}
+		function buatBaris4Kolom($kolom1, $kolom2, $kolom3, $kolom4) {
+            // Mengatur lebar setiap kolom (dalam satuan karakter)
+            $lebar_kolom_1 = 17;
+            $lebar_kolom_2 = 3;
+            $lebar_kolom_3 = 8;
+            $lebar_kolom_4 = 9;
+ 
+            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+            $kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
+            $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
+            $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
+            $kolom4 = wordwrap($kolom4, $lebar_kolom_4, "\n", true);
+ 
+            // Merubah hasil wordwrap menjadi array, kolom yang memiliki 2 index array berarti memiliki 2 baris (kena wordwrap)
+            $kolom1Array = explode("\n", $kolom1);
+            $kolom2Array = explode("\n", $kolom2);
+            $kolom3Array = explode("\n", $kolom3);
+            $kolom4Array = explode("\n", $kolom4);
+ 
+            // Mengambil jumlah baris terbanyak dari kolom-kolom untuk dijadikan titik akhir perulangan
+            $jmlBarisTerbanyak = max(count($kolom1Array), count($kolom2Array), count($kolom3Array), count($kolom4Array));
+ 
+            // Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
+            $hasilBaris = array();
+ 
+            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+            for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
+ 
+                // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
+                $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
+                $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ");
+ 
+                // memberikan rata kanan pada kolom 3 dan 4 karena akan kita gunakan untuk harga dan total harga
+                $hasilKolom3 = str_pad((isset($kolom3Array[$i]) ? $kolom3Array[$i] : ""), $lebar_kolom_3, " ", STR_PAD_LEFT);
+                $hasilKolom4 = str_pad((isset($kolom4Array[$i]) ? $kolom4Array[$i] : ""), $lebar_kolom_4, " ", STR_PAD_LEFT);
+ 
+                // Menggabungkan kolom tersebut menjadi 1 baris dan ditampung ke variabel hasil (ada 1 spasi disetiap kolom)
+                $hasilBaris[] = $hasilKolom1 . " " . $hasilKolom2 . " " . $hasilKolom3 . " " . $hasilKolom4;
+            }
+ 
+            // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
+            return implode($hasilBaris, "\n") . "\n";
+        }   
 
 
 		// Data Section
@@ -765,55 +761,35 @@ class Transaksi extends CI_Controller {
 		$data_item = $this->ItemTransaksiModel->show(0, 0, "OBJECT");
 		$this->db->reset_query();
 
-		// Printing Section
-		$this->load->library('EscPos.php');
+        $this->load->library('escpos');
+        $connector = new Escpos\PrintConnectors\WindowsPrintConnector("printer_a");
+        $printer = new Escpos\Printer($connector);
 
-		$profile = Escpos\CapabilityProfile::load("simple");
-		$connector = new Escpos\PrintConnectors\WindowsPrintConnector($c_printer_name);
-		// $connector = new Escpos\PrintConnectors\FilePrintConnector("php://stdout");
-		$printer = new Escpos\Printer($connector);
+		// Judul
+		$printer->initialize();
+		$printer->selectPrintMode(Escpos\Printer::MODE_DOUBLE_HEIGHT);
+		$printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+		$printer->text($c_title);
+		$printer->text("\n\n");
 
-	    $modes = array(
-			Escpos\Printer::MODE_FONT_A,
-			Escpos\Printer::MODE_FONT_B,
-			Escpos\Printer::MODE_EMPHASIZED,
-			Escpos\Printer::MODE_DOUBLE_HEIGHT,
-			Escpos\Printer::MODE_DOUBLE_WIDTH,
-			Escpos\Printer::MODE_UNDERLINE
-		);
-		$justification = array(
-			Escpos\Printer::JUSTIFY_LEFT,
-			Escpos\Printer::JUSTIFY_CENTER,
-			Escpos\Printer::JUSTIFY_RIGHT
-		);
-
-		$printer -> initialize();
-		$printer -> selectPrintMode($modes[3]);
-		$printer -> setJustification(EscPos\Printer::JUSTIFY_CENTER);
-		
-		$printer -> text($c_title . "\n\n");
-		
-		$printer -> setJustification($justification[0]);
-		$printer -> selectPrintMode($modes[0]);
-		$printer -> initialize();
-		$printer -> selectPrintMode($modes[1]);
-
-		$printer -> text(columnify_duo('Kasir', ': '.$user->nama_lengkap));
-		$printer -> text(columnify('Barang', 'Qty', 'harga', 'Subtotal'));
-		$printer -> text("------------------------------------------\n");
+		// Tabel
+		$printer->initialize();
+		$printer->text("----------------------------------------\n");
+		$printer->text(buatBaris4Kolom("Barang", "jml", "Harga", "Subtotal"));
+		$printer->text("----------------------------------------\n");
 		foreach ($data_item as $item) {
-			$stok = $this->StokModel->single($item->stok_id, 'OBJECT');
-			$barang = $this->BarangModel->single($stok->barang_id, 'OBJECT');
-
-			$printer -> text(columnify($item->barang, $item->qty,'Rp.'.$item->harga, 'Rp.'.$item->total));
+			$printer->text(buatBaris4Kolom($item->barang, $item->qty, number_format($item->harga, 0, '', '.'), number_format($item->total, 0, '', '.')));
 		}
-		$printer -> text("------------------------------------------\n");
-		$printer -> text(columnify('', '', 'PPN('.$c_ppn.'%)', 'Rp.'.$transaksi->ppn));
-		$printer -> text(columnify('', '', 'Total+PPN', 'Rp.'.$transaksi->total_ppn));
-		$printer -> text(columnify('', '', 'Bayar', 'Rp.'.$transaksi->bayar));
-		$printer -> text(columnify('', '', 'Kembali', 'Rp.'.$transaksi->kembali));
-		$printer->cut();
-		$printer->close();
+		$printer->text("----------------------------------------\n");
+
+		// Pesan penutup
+        $printer->initialize();
+        $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+        $printer->text("\n");
+        $printer->text($c_pesan_penutup);
+        $printer->feed((int) $c_feed);
+        $printer->cut();
+        $printer->close();
 	}
 
 

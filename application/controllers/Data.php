@@ -919,7 +919,7 @@ class Data extends CI_Controller {
 		$data['ui_js'] = array(
 			'custom/js/datetime.js',
 			'custom/js/dynamic-img.js',
-			'jsBarcode/js/JsBarcode.all.min.js'
+			'JsBarcode/js/JsBarcode.all.min.js',
 		);
 		$data['ui_navbar_title'] = 'Data';
 		$data['ui_navbar_link'] = $this->navigation->nav_data[$level];

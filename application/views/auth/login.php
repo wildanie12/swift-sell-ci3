@@ -1,6 +1,6 @@
 <?php $this->view('template/header') ?>
     <div class="container">
-        <div class="card card-container">
+        <div class="card card-container" style="margin-bottom: 10px !important; padding-bottom: 0 !important">
             <div class="row">
                 <div class="col-xs-12 text-center">
                     <h3 class="font-ubuntu text-center">Sign In</h3>
@@ -16,11 +16,37 @@
                             <strong>Error : </strong>
                             <span id="error-text"></span>
                         </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </form><!-- /form -->
-                    
+                    <p class="form-text text-muted text-center" style="font-style: italic; font-size: 10pt"><i>Wildani Software &copy; 2017</i></p>
                 </div>
             </div>
         </div><!-- /card-container -->
+        <div class="card card-container" style="margin-top: 10px !important; padding: 10px !important">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h4 style="margin-top:10px"><strong>User Demo</strong></h4>
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>Username</strong></td>
+                            <td>:</td>
+                            <td>admin</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Password</strong></td>
+                            <td>:</td>
+                            <td>admin</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div><!-- /container --> 
 <?php $this->view('template/js_script') ?>
 <script type="text/javascript">
